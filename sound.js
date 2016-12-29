@@ -156,6 +156,11 @@ Sound.enableInSilenceMode = function(enabled) {
   }
 };
 
+// ios only
+Sound.playInEarSpeaker = function(enabled) {
+  RNSound.playInEarSpeaker(enabled);
+};
+
 if (!IsAndroid) {
   Sound.enable(true);
 }

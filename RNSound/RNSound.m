@@ -64,6 +64,14 @@ RCT_EXPORT_METHOD(enable:(BOOL)enabled) {
   [session setActive: enabled error: nil];
 }
 
+RCT_EXPORT_METHOD(playInEarSpeaker:(BOOL)enabled) {
+  AVAudioSession *session = [AVAudioSession sharedInstance];
+  [session setCategory: AVAudioSessionCategoryPlayback error: nil];
+  [session setActive: enabled error: nil];
+  CFStringRef output = enabled ? kAudioSessionOutputRoute_BuiltInReceiver : kAudioSessionOutputRoute_BuiltInSpeaker;
+  [session overrideOutputAudioPort:output error:nil];
+}
+
 RCT_EXPORT_METHOD(setCategory:(nonnull NSNumber*)key withValue:(NSString*)categoryName) {
   AVAudioSession *session = [AVAudioSession sharedInstance];
   if ([categoryName isEqual: @"Ambient"]) {
